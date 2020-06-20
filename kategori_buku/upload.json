@@ -1,0 +1,18 @@
+{	
+	"productList" : [
+			{"productName" : "Poster",
+			"productImageUrl" : "http://192.168.43.147/shop/cover_buku_1.png",
+			"region" : "Sidoarjo",
+			"stock" : "100"},
+
+			{"productName" : "Poster",
+			"productImageUrl" : "http://192.168.43.147/shop/cover_buku_1.png",
+			"region" : "Surabaya",
+			"stock" : "20"},
+
+			{"productName" : "Brochure",
+			"productImageUrl" : "http://192.168.43.147/shop/cover_buku_1.png",
+			"region" : "Sidoarjo",
+			"stock" : "0"}
+	]
+}
