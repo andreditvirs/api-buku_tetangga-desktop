@@ -1,7 +1,6 @@
 <?php
 
-include '../model/mahasiswa.php';
-include '../config/config.php';
+include 'fun_crud_buku.php';
 
 function isTheseParametersAvailable($params){
     $available = true;
@@ -23,22 +22,33 @@ function isTheseParametersAvailable($params){
     }
 }
 
-require_once './include/DB_Connect.php';
+require_once '../include/DB_Connect.php';
 // koneksi ke database
 $db = new Db_Connect();
 $conn = $db->connect();
 
 $response = array();
 
-if(isset($_GET['apicall'])){
-    switch($_GET['apicall']){
-        case 'c_buku':
+if(isset($_GET['apicrud'])){
+    switch($_GET['apicrud']){
+        case 'req_buku':
             isTheseParametersAvailable(array('isbn','judul_buku', 'jumlah_stock', 'harga', 'foto', 'pengarang', 'penerbit', 'deskripsi', 'bahasa', 'berat', 'panjang', 'lebar'));
-            $result=createMahasiswa($conn,$_POST['nama'],$_POST['alamat']);
+            $result=createMahasiswa($conn, $_POST['nama'], $_POST['alamat']);
             if($result){
                 $response['error']=false;
                 $response['message'] = 'Buku berhasil ditambahkan';
                 $response['mahasiswa'] = getMahasiswa($conn);
+            }else{
+                $response['error'] = true;
+                $response['message'] = 'Some error';
+            }
+            break;
+        case 'a_buku' :
+            isTheseParametersAvailable(array('username', 'isbn', 'harga', 'jumlah_stock', 'keterangan'));
+            $result = addBuku($conn, $_POST['username'], $_POST['isbn'], $_POST['harga'], $_POST['jumlah_stock'], $_POST['keterangan']);
+            if($result){
+                $response['error']=false;
+                $response['message'] = 'Buku berhasil ditambahkan';
             }else{
                 $response['error'] = true;
                 $response['message'] = 'Some error';
