@@ -2,11 +2,31 @@
 
 include 'fun_crud_buku.php';
 
-function isTheseParametersAvailable($params){
+function isPOSTParametersAvailable($params){
     $available = true;
     $missingparams = "";
     foreach($params as $param){
         if(!isset($_POST[$param]) || strlen($_POST[$param])<=0){
+            $available = false;
+            $missingparams = $missingparams . ", " . $param;
+        }
+    }
+    if(!$available){
+        $response = array();
+        $response['error'] = true;
+        $response['message'] = 'Parameters ' . substr($missingparams, 1,
+        strlen($missingparams)) . ' missing';
+        
+        echo json_encode($response);
+        die();
+    }
+}
+
+function isGETParametersAvailable($params){
+    $available = true;
+    $missingparams = "";
+    foreach($params as $param){
+        if(!isset($_GET[$param]) || strlen($_GET[$param])<=0){
             $available = false;
             $missingparams = $missingparams . ", " . $param;
         }
@@ -32,7 +52,7 @@ $response = array();
 if(isset($_GET['apicrud'])){
     switch($_GET['apicrud']){
         case 'req_buku':
-            isTheseParametersAvailable(array('isbn','judul_buku', 'jumlah_stock', 'harga', 'foto', 'pengarang', 'penerbit', 'deskripsi', 'bahasa', 'berat', 'panjang', 'lebar'));
+            isPOSTParametersAvailable(array('isbn','judul_buku', 'jumlah_stock', 'harga', 'foto', 'pengarang', 'penerbit', 'deskripsi', 'bahasa', 'berat', 'panjang', 'lebar'));
             $result=createMahasiswa($conn, $_POST['nama'], $_POST['alamat']);
             if($result){
                 $response['error']=false;
@@ -44,7 +64,7 @@ if(isset($_GET['apicrud'])){
             }
             break;
         case 'a_buku' :
-            isTheseParametersAvailable(array('username', 'isbn', 'harga', 'jumlah_stock', 'keterangan'));
+            isPOSTParametersAvailable(array('username', 'isbn', 'harga', 'jumlah_stock', 'keterangan'));
             $result = addBuku($conn, $_POST['username'], $_POST['isbn'], $_POST['harga'], $_POST['jumlah_stock'], $_POST['keterangan']);
             if($result){
                 $response['error']=false;
@@ -55,7 +75,7 @@ if(isset($_GET['apicrud'])){
             }
             break;
         case 'u_buku':
-            isTheseParametersAvailable(array('id','nama','alamat'));
+            isPOSTParametersAvailable(array('id','nama','alamat'));
             $result=updateMahasiswa($conn,$_POST['id'],$_POST['nama'],
             $_POST['alamat']);
             if($result){
@@ -67,10 +87,17 @@ if(isset($_GET['apicrud'])){
                 $response['message'] = 'Some error';
             }
             break;
-        case 'g_buku':
-            $response['error'] = false;
-            $response['message'] = 'Request successfully completed';
-            $response['mahasiswa'] = getMahasiswa($conn);
+        case 'g_buku_lain':
+            isGETParametersAvailable(array('username', 'rakbuku_id'));
+            $result = getBukuDalamRak($conn, $_GET['username'], $_GET['rakbuku_id']);
+            if($result){
+                $response['error']=false;
+                $response['message'] = 'Request Berhasil';
+                $response['buku_lain'] = $result;
+            }else{
+                $response['error'] = true;
+                $response['message'] = 'Some error';    
+            }
             break;
         case 'd_buku':
             if(isset($_GET['id'])){

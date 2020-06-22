@@ -27,20 +27,26 @@ function addBuku($conn, $username, $isbn, $harga, $jumlah_stock, $keterangan){
     return false;
 }
 
-function getMahasiswa($conn) {
-    $sql = "SELECT * FROM profile";
-    $result = mysqli_query($conn, $sql);
+function getBukuDalamRak($conn, $username, $rakbuku_id) {
+    $sql1 = "SELECT id FROM users WHERE username = '$username'";
+    $result1 = mysqli_query($conn, $sql1);
+    $row1 = mysqli_fetch_array($result1);
+    $id1 = $row1['id'];
+    $sql2 = "SELECT r.id, u.username, r.harga, r.jumlah_stock, r.foto FROM rakbuku r JOIN users u ON r.user_id = '$id1' WHERE r.id <> '$rakbuku_id' GROUP BY r.id ORDER BY r.harga";
+    $result2 = mysqli_query($conn, $sql2);
 
-    $mahasiswa = array();
-    while ($row = mysqli_fetch_array($result)) {
-        $mahasiswa_temp = array();
-        $mahasiswa_temp['id'] = $row['id'];
-        $mahasiswa_temp['nama'] = $row['nama'];
-        $mahasiswa_temp['alamat'] = $row['alamat'];
-        array_push($mahasiswa, $mahasiswa_temp);
+    $buku = array();
+    while ($row = mysqli_fetch_array($result2)) {
+        $buku_temp = array();
+        $buku_temp['id'] = $row['id'];
+        $buku_temp['username'] = $row['username'];
+        $buku_temp['harga'] = $row['harga'];
+        $buku_temp['jumlah_stock'] = $row['jumlah_stock'];
+        $buku_temp['foto'] = $row['foto'];
+        array_push($buku, $buku_temp);
     }
     mysqli_close($conn);
-    return $mahasiswa;
+    return $buku;
 }
 
 function updateMahasiswa($conn, $id, $nama, $alamat) {
