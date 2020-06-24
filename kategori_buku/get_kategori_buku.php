@@ -67,6 +67,35 @@ if (isset($_GET['kategori'])){
                 $response["error"] = true;
                 $response["error_msg"] = "Parameter tidak lengkap";
             }
+            break;
+        case 'buku_lain':
+            if(isset($_POST['username'], $_POST['rakbuku_id'])){
+                $username = $_POST['username'];
+                $rakbuku_id = $_POST['rakbuku_id'];
+                $stmt1 = $conn->prepare("SELECT id FROM users WHERE username = '$username'");
+                $stmt1->execute();
+                $result1 = $stmt1->get_result();
+                $row1 = $result1->fetch_assoc();
+                $id1 = $row1['id'];
+
+                $stmt = $conn->prepare("SELECT r.id, u.username, r.harga, r.jumlah_stock, r.foto FROM rakbuku r JOIN users u ON r.user_id = '$id1' WHERE r.id <> '$rakbuku_id' GROUP BY r.id ORDER BY r.harga");
+                $stmt->execute();
+                $response['buku_lain']=array();
+                if($result = $stmt->get_result()){
+                    while($row = $result->fetch_assoc()){
+                        $buku_temp['id'] = $row['id'];
+                        $buku_temp['username'] = $row['username'];
+                        $buku_temp['harga'] = $row['harga'];
+                        $buku_temp['jumlah_stock'] = $row['jumlah_stock'];
+                        $buku_temp['foto'] = $row['foto'];
+                        array_push($response['buku_lain'],$row_result);
+                    }
+                    $result->free();
+                } 
+            }else{
+                $response["error"] = true;
+                $response["error_msg"] = "Parameter tidak lengkap";
+            }
             break;   
     }
 

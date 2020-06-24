@@ -87,18 +87,6 @@ if(isset($_GET['apicrud'])){
                 $response['message'] = 'Some error';
             }
             break;
-        case 'g_buku_lain':
-            isGETParametersAvailable(array('username', 'rakbuku_id'));
-            $result = getBukuDalamRak($conn, $_GET['username'], $_GET['rakbuku_id']);
-            if($result){
-                $response['error']=false;
-                $response['message'] = 'Request Berhasil';
-                $response['buku_lain'] = $result;
-            }else{
-                $response['error'] = true;
-                $response['message'] = 'Some error';    
-            }
-            break;
         case 'd_buku':
             if(isset($_GET['id'])){
                 if(deleteMahasiswa($conn,$_GET['id'])){
