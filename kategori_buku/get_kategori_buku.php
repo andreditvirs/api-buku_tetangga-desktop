@@ -20,7 +20,7 @@ if (isset($_GET['kategori'])){
                     $row_result["penerbit"] = $row["penerbit"];
                     $row_result["harga"] = $row["harga"];
                     $row_result["jumlah_stock"] = $row["jumlah_stock"];
-                    $row_result["foto"] = $row["foto"];
+                    $row_result["foto"] = DB_LOC.DB_IMG.$row["foto"];
                     array_push($response['buku_terbaru'],$row_result);
                 }
                 $result->free();
@@ -38,7 +38,7 @@ if (isset($_GET['kategori'])){
                     $row_result["penerbit"] = $row["penerbit"];
                     $row_result["harga"] = $row["harga"];
                     $row_result["jumlah_stock"] = $row["jumlah_stock"];
-                    $row_result["foto"] = $row["foto"];
+                    $row_result["foto"] = DB_LOC.DB_IMG.$row["foto"];
                     array_push($response['buku_terpopuler'],$row_result);
                 }
                 $result->free();
@@ -58,7 +58,7 @@ if (isset($_GET['kategori'])){
                         $row_result["penerbit"] = $row["penerbit"];
                         $row_result["harga"] = $row["harga"];
                         $row_result["jumlah_stock"] = $row["jumlah_stock"];
-                        $row_result["foto"] = $row["foto"];
+                        $row_result["foto"] = DB_LOC.DB_IMG.$row["foto"];
                         array_push($response['buku_rekomendasi'],$row_result);
                     }
                     $result->free();
@@ -68,7 +68,7 @@ if (isset($_GET['kategori'])){
                 $response["error_msg"] = "Parameter tidak lengkap";
             }
             break;
-        case 'buku_lain':
+        case 'lain':
             if(isset($_POST['username'], $_POST['rakbuku_id'])){
                 $username = $_POST['username'];
                 $rakbuku_id = $_POST['rakbuku_id'];
@@ -87,7 +87,7 @@ if (isset($_GET['kategori'])){
                         $buku_temp['username'] = $row['username'];
                         $buku_temp['harga'] = $row['harga'];
                         $buku_temp['jumlah_stock'] = $row['jumlah_stock'];
-                        $buku_temp['foto'] = $row['foto'];
+                        $buku_temp['foto'] = DB_LOC.DB_IMG.$row['foto'];
                         array_push($response['buku_lain'],$row_result);
                     }
                     $result->free();

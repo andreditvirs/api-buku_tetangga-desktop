@@ -19,7 +19,7 @@ if (isset($_GET['username'])){
             $row_result["penerbit"] = $row["penerbit"];
             $row_result["harga"] = $row["harga"];
             $row_result["jumlah_stock"] = $row["jumlah_stock"];
-            $row_result["foto"] = $row["foto"];
+            $row_result["foto"] = DB_LOC.DB_IMG.$row["foto"];
             array_push($response,$row_result);
         }
         $result->free();
