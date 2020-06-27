@@ -4,42 +4,24 @@
 	<title>Register</title>
 </head>
 <body>
-	<form method="POST" action="crud/api_crud_buku.php?apicrud=a_buku">
+	<form method="POST" action="transaksi/penyewaan.php">
 		<table>
 			<tr>
-				<td>User Name : </td>
+				<td>Penyewa ID : </td>
 				<td>
-					<input type="text" name="username">
+					<input type="text" name="penyewa">
 				</td>
 			</tr>
 			<tr>
-				<td>ISBN</td>
+				<td>Rakbuku ID</td>
 			<td>
-				<input type="text" name="isbn">
-			</td>
-            </tr>
-            <tr>
-				<td>Harga</td>
-			<td>
-				<input type="text" name="harga">
-			</td>
-            </tr>
-            <tr>
-				<td>Jumlah Stock</td>
-			<td>
-				<input type="text" name="jumlah_stock">
-			</td>
-            </tr>
-            <tr>
-				<td>Keterangan</td>
-			<td>
-				<input type="text" name="keterangan">
+				<input type="text" name="rakbuku_id">
 			</td>
 			</tr>
 			<tr>
-				<td>
-					<input type="submit" value="Login">
-				</td>
+			<td>
+				<input type="submit" value="Login">
+			</td>
 			</tr>
 		</table>
 	</form>
