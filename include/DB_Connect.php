@@ -1,6 +1,6 @@
 <?php
-define("DB_LOC", "http://192.168.43.147/buku_tetangga/");
-define("DB_IMG", "image/buku/");
+define("DB_LOC", "http://192.168.43.147/buku_tetangga");
+define("DB_IMG", "/buku/image/");
 class DB_Connect {
     private $conn;
     // koneksi ke database

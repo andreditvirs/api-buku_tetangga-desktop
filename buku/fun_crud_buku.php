@@ -66,3 +66,39 @@ function deleteMahasiswa($conn, $id) {
     mysqli_close($conn);
     return false;
 }
+
+function getDetailBuku($conn, $rakbuku_id) {
+    $sql = "SELECT *, r.foto AS foto FROM rakbuku r 
+            JOIN users u ON r.user_id = u.id 
+            JOIN buku b ON r.buku_id = b.id
+            WHERE r.id = '$rakbuku_id'
+            GROUP BY r.id ORDER BY r.harga";
+    $result = mysqli_query($conn, $sql);
+
+    $buku = array();
+    while ($row = mysqli_fetch_array($result)) {
+        $buku_temp = array();
+        $buku_temp['penyedia'] = array(
+                                    'username' => $row['username']
+                                    ,'notelp' => $row['notelp']
+                                    ,'alamat' => $row['alamat']
+                                );
+        $buku_temp['buku'] = array(
+                                    'isbn' => $row['isbn']
+                                    ,'judul' => $row['judul']
+                                    ,'pengarang' => $row['pengarang']
+                                    ,'penerbit' => $row['penerbit']
+                                    ,'kategori' => $row['kategori']
+                                    ,'deskripsi' => $row['deskripsi']
+                                    );
+        $buku_temp['rakbuku'] = array(
+                                    'harga' => $row['harga']
+                                    ,'jumlah_stock' => $row['jumlah_stock']
+                                    ,'keterangan' => $row['keterangan']
+                                    ,'foto' => $row['foto']
+                                    );
+        array_push($buku, $buku_temp);
+    }
+    mysqli_close($conn);
+    return $buku;
+}

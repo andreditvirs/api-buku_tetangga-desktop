@@ -1,10 +1,12 @@
 <?php
-require_once '../include/DB_Connect.php';
+require_once '../../include/DB_Connect.php';
 // koneksi ke database
 $db = new Db_Connect();
 $conn = $db->connect();
 
 $response = array("error"=> false);
+
+// Param terbaru bukan body GET
 if (isset($_GET['kategori'])){
     $kategori = $_GET['kategori'];
     switch($kategori){
@@ -25,6 +27,7 @@ if (isset($_GET['kategori'])){
                 }
                 $result->free();
             }
+            $stmt->close();
             break;
         case 'terpopuler':
             $stmt = $conn->prepare("SELECT * FROM sewabuku s LEFT JOIN rakbuku r ON s.rakbuku_id = r.id LEFT JOIN buku b ON r.buku_id = b.id GROUP BY s.rakbuku_id ORDER BY COUNT(s.rakbuku_id) DESC");
@@ -43,6 +46,7 @@ if (isset($_GET['kategori'])){
                 }
                 $result->free();
             }
+            $stmt->close();
             break;
         case 'rekomendasi':
             if(isset($_GET['username'])){
@@ -62,10 +66,11 @@ if (isset($_GET['kategori'])){
                         array_push($response['buku_rekomendasi'],$row_result);
                     }
                     $result->free();
-                } 
+                }
+                $stmt->close(); 
             }else{
                 $response["error"] = true;
-                $response["error_msg"] = "Parameter tidak lengkap";
+                $response["error_msg"] = "Parameter tidak lengkap"; // Tidak ada username
             }
             break;
         case 'lain':
@@ -96,10 +101,9 @@ if (isset($_GET['kategori'])){
                 $response["error"] = true;
                 $response["error_msg"] = "Parameter tidak lengkap";
             }
+            $stmt1->close();
             break;   
     }
-
-    $stmt->close();
     echo json_encode($response);
 }
 ?>
