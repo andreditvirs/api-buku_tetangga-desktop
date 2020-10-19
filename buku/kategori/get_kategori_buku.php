@@ -11,13 +11,13 @@ if (isset($_GET['kategori'])){
     $kategori = $_GET['kategori'];
     switch($kategori){
         case 'terbaru':
-            $stmt = $conn->prepare("SELECT r.id, b.judul_buku, b.pengarang, b.penerbit, r.harga, r.jumlah_stock, r.foto FROM rakbuku r JOIN buku b ON r.buku_id = b.id GROUP BY r.buku_id ORDER BY b.id DESC");
+            $stmt = $conn->prepare("SELECT r.id, b.judul, b.pengarang, b.penerbit, r.harga, r.jumlah_stock, r.foto FROM rakbuku r JOIN buku b ON r.buku_id = b.id GROUP BY r.buku_id ORDER BY b.id DESC");
             $stmt->execute();
             $response['buku_terbaru']=array();
             if($result = $stmt->get_result()){
                 while($row = $result->fetch_assoc()){
                     $row_result["rakbuku_id"] = $row["id"];
-                    $row_result["judul_buku"] = $row["judul_buku"];
+                    $row_result["judul"] = $row["judul"];
                     $row_result["pengarang"] = $row["pengarang"];
                     $row_result["penerbit"] = $row["penerbit"];
                     $row_result["harga"] = $row["harga"];
@@ -36,7 +36,7 @@ if (isset($_GET['kategori'])){
             if($result = $stmt->get_result()){
                 while($row = $result->fetch_assoc()){
                     $row_result["rakbuku_id"] = $row["rakbuku_id"];
-                    $row_result["judul_buku"] = $row["judul_buku"];
+                    $row_result["judul"] = $row["judul"];
                     $row_result["pengarang"] = $row["pengarang"];
                     $row_result["penerbit"] = $row["penerbit"];
                     $row_result["harga"] = $row["harga"];
@@ -57,7 +57,7 @@ if (isset($_GET['kategori'])){
                 if($result = $stmt->get_result()){
                     while($row = $result->fetch_assoc()){
                         $row_result["rakbuku_id"] = $row["rakbuku_id"];
-                        $row_result["judul_buku"] = $row["judul_buku"];
+                        $row_result["judul"] = $row["judul"];
                         $row_result["pengarang"] = $row["pengarang"];
                         $row_result["penerbit"] = $row["penerbit"];
                         $row_result["harga"] = $row["harga"];

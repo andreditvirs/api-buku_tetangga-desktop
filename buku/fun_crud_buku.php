@@ -95,7 +95,7 @@ function getDetailBuku($conn, $rakbuku_id) {
                                     'harga' => $row['harga']
                                     ,'jumlah_stock' => $row['jumlah_stock']
                                     ,'keterangan' => $row['keterangan']
-                                    ,'foto' => $row['foto']
+                                    ,'foto' => DB_LOC.DB_IMG.$row['foto']
                                     );
         array_push($buku, $buku_temp);
     }
