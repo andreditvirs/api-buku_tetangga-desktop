@@ -5,6 +5,7 @@ require_once '../include/DB_Connect.php';
 $db = new Db_Connect();
 $conn = $db->connect();
 
+// Untuk PENYEDIA (yang hanya bisa menggunakan fitur ini untuk memperpanjang peminjaman)
 $response = array();
 if (isset($_POST['sewabuku_id']) && isset($_POST['ext_day'])){
     $sewabuku_id = $_POST['sewabuku_id'];

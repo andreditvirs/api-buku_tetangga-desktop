@@ -1,0 +1,13 @@
+file sewa.php untuk PENYEWA membooking stock buku yang tersedia;
+file bayarsewa.php untuk PENYEWA membayar uang sewa ke PENYEDIA, kode berada di PENYEWA, inputannya di PENYEDIA
+file kembali.php untuk PENYEWA mengembalikan buku ke PENYEDIA, kode berada di PENYEDIA, inputannya di PENYEWA
+
+file ext.php untuk PENYEWA UNTUK membuat persetujuan ke PENYEDIA untuk memperpanjang waktu penyewaan buku.
+
+API
+localhost/buku_tetangga/transaksi/sewa.php POST --PENYEWA param(rakbuku_id, penyewa_id, lama_sewa)
+localhost/buku_tetangga/transaksi/bayarsewa.php POST --PENYEWA param(sewabuku_id)
+localhost/buku_tetangga/transaksi/bayarsewa.php POST --PENYEDIA param(sewabuku_id, kode_sewa)
+localhost/buku_tetangga/transaksi/ext.php POST --PENYEDIA param(sewabuku_id, ext_day)
+localhost/buku_tetangga/transaksi/kembali.php POST --PENYEWA param(sewabuku_id, kode_kembali)
+localhost/buku_tetangga/transaksi/kembali.php POST --PENYEDIA param(sewabuku_id)
