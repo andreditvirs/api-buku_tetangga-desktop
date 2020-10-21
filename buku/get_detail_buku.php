@@ -28,14 +28,14 @@ if(isPOSTParametersAvailable(array('rakbuku_id'))){
     $result = getDetailBuku($conn, $_POST['rakbuku_id']);
     if($result){
         $response['error']=false;
-        $response['message'] = 'Buku berhasil dicari';
+        $response['msg'] = 'Buku berhasil dicari';
         $response['detail_buku'] = $result;
     }else{
         $response['error'] = true;
-        $response['message'] = 'Some error';
+        $response['msg'] = 'Some error';
     }
 }else{
     $response['error'] = true;
-    $response['message'] = 'Invalid API Call';
+    $response['msg'] = 'Invalid API Call';
 }
 echo json_encode($response);
