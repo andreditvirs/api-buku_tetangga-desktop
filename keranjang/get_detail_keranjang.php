@@ -45,7 +45,8 @@ $conn = $db->connect();
 
 // Untuk PENYEWA memilih buku yang ingin disewa dan memasukkan ke keranjang
 $response = array();
-if(isPOSTParametersAvailable(array('penyewa_id', 'rakbuku_id'))){
+if(isset($_POST['penyewa_id']) && isset($_POST['rakbuku_id'])){
+    isPOSTParametersAvailable(array('penyewa_id', 'rakbuku_id'));
     $result = addKeranjang($conn, $_POST['penyewa_id'], $_POST['rakbuku_id']);
     if($result){
         $response['error'] = false;
@@ -55,26 +56,47 @@ if(isPOSTParametersAvailable(array('penyewa_id', 'rakbuku_id'))){
         $response['msg'] = 'Some error';
     }
     echo json_encode($response);
-}else{
-    $response['error'] = true;
-    $response['msg'] = 'Invalid API Call';
-    echo json_encode($response);
 }
 
 // Untuk PENYEWA mengetahui buku yang ada dikeranjang apa saja
-if(isGETParametersAvailable(array('penyewa_id'))){
-    $result = cekKeranjang($conn, $_POST['penyewa_id']);
+if(isset($_GET['penyewa_id'])){
+    isGETParametersAvailable(array('penyewa_id'));
+    $result = cekKeranjang($conn, $_GET['penyewa_id']);
     if($result != null){
         $response['error'] = false;
-        $response['msg'] = 'Buku Telah Dicari';
+        $response['msg'] = 'Keranjang Telah Dicari';
         $response['detail_keranjang'] = $result;
     }else{
         $response['error'] = true;
         $response['msg'] = 'Some error';
     }
     echo json_encode($response);
-}else{
-    $response['error'] = true;
-    $response['msg'] = 'Invalid API Call';
+}
+
+// Untuk PENYEWA menghapus buku yang ada dikeranjang
+if(isset($_POST['keranjang_id']) && !isset($_POST['jumlah_buku'])){
+    isPOSTParametersAvailable(array('keranjang_id'));
+    $result = deleteKeranjang($conn, $_POST['keranjang_id']);
+    if($result != null){
+        $response['error'] = false;
+        $response['msg'] = 'Keranjang Telah Terhapus';
+    }else{
+        $response['error'] = true;
+        $response['msg'] = 'Some error';
+    }
+    echo json_encode($response);
+}
+
+// Untuk PENYEWA mengeset buku yang ada dikeranjang
+if(isset($_POST['keranjang_id']) && isset($_POST['jumlah_buku'])){
+    isPOSTParametersAvailable(array('keranjang_id, jumlah_buku'));
+    $result = updateKeranjang($conn, $_POST['keranjang_id'], $_POST['jumlah_buku']);
+    if($result != null){
+        $response['error'] = false;
+        $response['msg'] = 'Jumlah Buku Telah Diatur';
+    }else{
+        $response['error'] = true;
+        $response['msg'] = 'Some error';
+    }
     echo json_encode($response);
 }

@@ -1,0 +1,6 @@
+
+#KERANJANG
+http://localhost/buku_tetangga/keranjang/get_detail_keranjang.php --POST(penyewa_id, rakbuku_id) untuk CREATE
+http://localhost/buku_tetangga/keranjang/get_detail_keranjang.php --GET(penyewa_id) untuk READ
+http://localhost/buku_tetangga/keranjang/get_detail_keranjang.php --POST(keranjang_id) untuk DELETE
+http://localhost/buku_tetangga/keranjang/get_detail_keranjang.php --POST(keranjang_id, jumlah_buku) untuk UPDATE
