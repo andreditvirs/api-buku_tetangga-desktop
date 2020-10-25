@@ -13,7 +13,8 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     if ($user != false) {
         // user ditemukan
         $response["error"] = FALSE;
-        $response["user"]["nama_lengkap"] = $user["nama_lengkap"];
+        $response["user"]["id"] = $user["id"];
+	$response["user"]["nama_lengkap"] = $user["nama_lengkap"];
         echo json_encode($response);
     } else {
         // user tidak ditemukan password/email salah

@@ -2,13 +2,15 @@
 
 // CREATE
 function addKeranjang($conn, $penyewa_id, $rakbuku_id) {
-    $sql = "INSERT INTO keranjang(penyewa_id, rakbuku_id) VALUES('$penyewa_id', '$rakbuku_id')";
-    if (mysqli_query($conn, $sql)) {
-        return true;
-
+    $sql1 = "INSERT INTO keranjang(penyewa_id, rakbuku_id) VALUES('$penyewa_id', '$rakbuku_id')";
+    if (mysqli_query($conn, $sql1)) {
+        $sql2 = "SELECT id FROM keranjang WHERE penyewa_id = '$penyewa_id' AND rakbuku_id = '$rakbuku_id'";
+	$result2 = mysqli_query($conn, $sql2);
+    	$row2 = mysqli_fetch_array($result2);
+	return $row2['id'];
     }
     mysqli_close($conn);
-    return false;
+    return '';
 }
 
 // READ
@@ -16,13 +18,13 @@ function cekKeranjang($conn, $penyewa_id) {
     $sql1 = "SELECT id FROM keranjang WHERE penyewa_id = '$penyewa_id'";
     $result1 = mysqli_query($conn, $sql1);
     $row1 = mysqli_fetch_array($result1);
+    $array_all = array();
     if(!is_null($row1)){
         $sql2 = "SELECT *, r.foto AS rakbuku_foto, u.foto AS penyedia_foto
                 , b.judul AS buku_judul, k.id AS keranjang_id FROM keranjang k LEFT JOIN rakbuku r ON k.rakbuku_id = r.id 
                 LEFT JOIN users u ON k.penyewa_id = u.id
                 LEFT JOIN buku b ON r.buku_id = b.id";
         $result2 = mysqli_query($conn, $sql2);
-        $array_all = array();
         while ($row = mysqli_fetch_array($result2)) {
             $array_temp = array();
             $array_temp['keranjang'] = array(

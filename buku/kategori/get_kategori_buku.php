@@ -97,11 +97,12 @@ if (isset($_GET['kategori'])){
                     }
                     $result->free();
                 } 
+		$stmt1->close();
             }else{
                 $response["error"] = true;
                 $response["error_msg"] = "Parameter tidak lengkap";
             }
-            $stmt1->close();
+            
             break;   
     }
     echo json_encode($response);

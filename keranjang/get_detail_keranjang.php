@@ -48,9 +48,10 @@ $response = array();
 if(isset($_POST['penyewa_id']) && isset($_POST['rakbuku_id'])){
     isPOSTParametersAvailable(array('penyewa_id', 'rakbuku_id'));
     $result = addKeranjang($conn, $_POST['penyewa_id'], $_POST['rakbuku_id']);
-    if($result){
+    if($result != ''){
         $response['error'] = false;
         $response['msg'] = 'Buku Sudah Masuk ke Keranjang';
+	$response['penyewa_id'] = $result;
     }else{
         $response['error'] = true;
         $response['msg'] = 'Some error';

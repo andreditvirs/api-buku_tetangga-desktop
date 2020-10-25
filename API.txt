@@ -2,5 +2,64 @@
 #KERANJANG
 http://localhost/buku_tetangga/keranjang/get_detail_keranjang.php --POST(penyewa_id, rakbuku_id) untuk CREATE
 http://localhost/buku_tetangga/keranjang/get_detail_keranjang.php --GET(penyewa_id) untuk READ
+{
+    "error": false,
+    "msg": "Keranjang Telah Dicari",
+    "detail_keranjang": [
+        {
+            "keranjang": {
+                "id": "2"
+            },
+            "penyedia": {
+                "nama_lengkap": "BigBoxIndonesia",
+                "foto": null
+            },
+            "buku": {
+                "judul": "Buku Minta Dibanting"
+            },
+            "rakbuku": {
+                "harga": "5000",
+                "foto": "http://192.168.43.147/buku_tetangga/buku/image/1.jpg"
+            }
+        },
+        {
+            "keranjang": {
+                "id": "3"
+            },
+            "penyedia": {
+                "nama_lengkap": "BigBoxIndonesia",
+                "foto": null
+            },
+            "buku": {
+                "judul": "Buku Minta Dibanting"
+            },
+            "rakbuku": {
+                "harga": "5000",
+                "foto": "http://192.168.43.147/buku_tetangga/buku/image/1.jpg"
+            }
+        },
+        {
+            "keranjang": {
+                "id": "4"
+            },
+            "penyedia": {
+                "nama_lengkap": "admin",
+                "foto": null
+            },
+            "buku": {
+                "judul": "Pelukis Bisu (The Silent Patient)"
+            },
+            "rakbuku": {
+                "harga": "6000",
+                "foto": "http://192.168.43.147/buku_tetangga/buku/image/6.jpg"
+            }
+        }
+    ]
+}
+
 http://localhost/buku_tetangga/keranjang/get_detail_keranjang.php --POST(keranjang_id) untuk DELETE
 http://localhost/buku_tetangga/keranjang/get_detail_keranjang.php --POST(keranjang_id, jumlah_buku) untuk UPDATE
+{
+    "error": false,
+    "msg": "Jumlah Buku Telah Diatur"
+}
