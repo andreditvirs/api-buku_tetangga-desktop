@@ -1,3 +1,4 @@
+API
 
 #KERANJANG
 http://localhost/buku_tetangga/keranjang/get_detail_keranjang.php --POST(penyewa_id, rakbuku_id) untuk CREATE
